@@ -15,6 +15,7 @@ import com.sangxiaonian.xcalendar.entity.DateBean;
 import com.sangxiaonian.xcalendar.inter.CalendarControl;
 import com.sangxiaonian.xcalendar.utils.JLog;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -48,14 +49,27 @@ public class SequenceAdapter extends RecyclerView.Adapter implements CalendarCon
         SequenceCalendarHolder holder = (SequenceCalendarHolder) viewHolder;
         DateBean dateBean = dateBeans.get(i);
         holder.initView(i, dateBean);
-//        holder.setListener(this);
+        holder.setListener(this);
 
+        holder.calendarView.setSequenceSelect(startDatebean,endDateBean);
+
+//
+//        if (startDatebean==null&&endDateBean==null){
+//            holder.calendarView.clearSelects();
+//        }else if (startDatebean!=null&&endDateBean==null){
+//            if (startDatebean.equals(dateBean)){//如果是初始月
+//                holder.calendarView.
+//            }
+//        }else
+//
 //        if (startDatebean!=null&&endDateBean!=null) {
 //            if (startDatebean.compareWithNoDayTo(dateBean) > 0 || endDateBean.compareWithNoDayTo(dateBean) < 0) {//不再日期范围之内
 //                holder.calendarView.clearSelects();
 //            } else if (startDatebean.compareWithNoDayTo(dateBean)<0&&endDateBean.compareWithNoDayTo(dateBean)>0){//在选择的日期范围之内
 //                holder.calendarView.setSelectedAll();
 //            }else if (startDatebean.compareWithNoDayTo(endDateBean)==0){//如果同月
+//                holder.calendarView.setSelectedAll();
+//            }else {
 //                holder.calendarView.clearSelects();
 //            }
 //        }
@@ -94,7 +108,13 @@ public class SequenceAdapter extends RecyclerView.Adapter implements CalendarCon
         }
     }
     private void setEnd(DateBean i) {
-        endDateBean=i;
+        if (startDatebean.compareTo(i)>0){
+            endDateBean=startDatebean;
+            startDatebean=i;
+        }else if (startDatebean.compareTo(i)<0){
+            endDateBean=i;
+        }
+
     }
 
     private void setStart(DateBean bean) {

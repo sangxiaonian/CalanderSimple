@@ -38,13 +38,13 @@ public class SequenceCalendar extends RecyclerView {
     }
 
     private void initView(Context context, AttributeSet attrs, int defStyle) {
-        startYear=2000;
+        startYear=2018;
         startMonth=0;
-        endYear=2050;
+        endYear=2018;
         endMonth=11;
         dates=new ArrayList<>();
         for (int i = startYear; i <=endYear ; i++) {
-            for (int j = 0; j <11 ; j++) {
+            for (int j = 0; j <12 ; j++) {
                 dates.add(new DateBean(i,j,1));
             }
         }
