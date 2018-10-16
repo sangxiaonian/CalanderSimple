@@ -13,6 +13,7 @@ import com.sangxiaonian.xcalendar.adapter.DefaultCalendarAdapter;
 import com.sangxiaonian.xcalendar.entity.DateBean;
 import com.sangxiaonian.xcalendar.inter.CalendarControl;
 import com.sangxiaonian.xcalendar.utils.CalendarUtils;
+import com.sangxiaonian.xcalendar.utils.JLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +72,6 @@ public class BaseCalendarView extends View {
 
     protected void initView(Context context, AttributeSet attrs, int defStyleAttr) {
         calendar = new CalendarUtils();
-
         showDates = new ArrayList<>();
         selectDates = new ArrayList<>();
         year = calendar.getCurrentYear();
@@ -152,6 +152,7 @@ public class BaseCalendarView extends View {
         this.day = -1;
 
         firstDayOfWeek = calendar.getMonthFirstDayOfWeek(year, month);
+        JLog.i(firstDayOfWeek+">>>"+year+">>>"+month);
         dayCount = calendar.getMonthDayCount(year, month);
         upRect(dayCount, year, month);
         postInvalidate();

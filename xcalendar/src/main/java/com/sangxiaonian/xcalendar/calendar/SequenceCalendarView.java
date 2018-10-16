@@ -79,7 +79,7 @@ public class SequenceCalendarView extends BaseCalendarView {
                             setStart(i);
                         }
                         if (calendarClickListener != null) {
-                            calendarClickListener.onSelectChange(selectDates);
+                            calendarClickListener.onSelectChange(showDates.get(i),selectDates);
                         }
                         postInvalidate();
                         return true;
@@ -120,10 +120,9 @@ public class SequenceCalendarView extends BaseCalendarView {
      * 选中所有日期
      */
     public void setSelectedAll() {
-        selectDates.clear();
-        selectDates.addAll(showDates);
-        startDatebean = showDates.get(0);
-        endDateBean = showDates.get(showDates.size() - 1);
+        setStart(0);
+        setEnd(showDates.size()-1);
+
         postInvalidate();
     }
 
@@ -155,7 +154,6 @@ public class SequenceCalendarView extends BaseCalendarView {
                 if (startDatebean.compareWithNoDayTo(showDates.get(0))==0){
                     setStart(min.getDay()-1);
                     setEnd(max.getDay()-1);
-
                     //不在本月
                 }else {
                     clearSelects();
@@ -179,7 +177,11 @@ public class SequenceCalendarView extends BaseCalendarView {
                 clearSelects();
             }
         }else {
-            selectDates.add(startDatebean==null?endDateBean:startDatebean);
+            if (startDatebean.compareWithNoDayTo(showDates.get(0))==0) {
+                setStart(startDatebean == null ? endDateBean.getDay() - 1 : startDatebean.getDay() - 1);
+            }else {
+                clearSelects();
+            }
         }
         postInvalidate();
     }

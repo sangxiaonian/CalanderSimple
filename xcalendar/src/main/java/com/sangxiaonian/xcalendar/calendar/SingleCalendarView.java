@@ -60,13 +60,13 @@ public class SingleCalendarView extends BaseCalendarView {
                             }
                             selectDates.add(showDates.get(i));
                             if (calendarClickListener!=null){
-                                calendarClickListener.onSelectChange(selectDates);
+                                calendarClickListener.onSelectChange(showDates.get(i), selectDates);
                             }
                         }else {
                             if (!isSingle){
                                 selectDates.remove(showDates.get(i));
                                 if (calendarClickListener!=null){
-                                    calendarClickListener.onSelectChange(selectDates);
+                                    calendarClickListener.onSelectChange(showDates.get(i), selectDates);
                                 }
                             }
                         }

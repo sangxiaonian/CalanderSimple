@@ -9,13 +9,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sangxiaonian.xcalendar.R;
-import com.sangxiaonian.xcalendar.adapter.SequenceCalenderAdapter;
 import com.sangxiaonian.xcalendar.calendar.SequenceCalendarView;
 import com.sangxiaonian.xcalendar.entity.DateBean;
 import com.sangxiaonian.xcalendar.inter.CalendarControl;
 import com.sangxiaonian.xcalendar.utils.JLog;
 
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -27,10 +25,6 @@ public class SequenceAdapter extends RecyclerView.Adapter implements CalendarCon
     List<DateBean> dateBeans;
 
     DateBean startDatebean,endDateBean;
-
-
-
-
 
     public SequenceAdapter(Context context, List<DateBean> dateBeans) {
         this.context = context;
@@ -50,31 +44,7 @@ public class SequenceAdapter extends RecyclerView.Adapter implements CalendarCon
         DateBean dateBean = dateBeans.get(i);
         holder.initView(i, dateBean);
         holder.setListener(this);
-
         holder.calendarView.setSequenceSelect(startDatebean,endDateBean);
-
-//
-//        if (startDatebean==null&&endDateBean==null){
-//            holder.calendarView.clearSelects();
-//        }else if (startDatebean!=null&&endDateBean==null){
-//            if (startDatebean.equals(dateBean)){//如果是初始月
-//                holder.calendarView.
-//            }
-//        }else
-//
-//        if (startDatebean!=null&&endDateBean!=null) {
-//            if (startDatebean.compareWithNoDayTo(dateBean) > 0 || endDateBean.compareWithNoDayTo(dateBean) < 0) {//不再日期范围之内
-//                holder.calendarView.clearSelects();
-//            } else if (startDatebean.compareWithNoDayTo(dateBean)<0&&endDateBean.compareWithNoDayTo(dateBean)>0){//在选择的日期范围之内
-//                holder.calendarView.setSelectedAll();
-//            }else if (startDatebean.compareWithNoDayTo(endDateBean)==0){//如果同月
-//                holder.calendarView.setSelectedAll();
-//            }else {
-//                holder.calendarView.clearSelects();
-//            }
-//        }
-
-
     }
 
     @Override
@@ -85,24 +55,25 @@ public class SequenceAdapter extends RecyclerView.Adapter implements CalendarCon
     /**
      * 当日历被点击的时候
      *
+     * @param clickBean
      * @param selects 当前选中的全部日期
      */
     @Override
-    public void onSelectChange(List<DateBean> selects) {
+    public void onSelectChange(DateBean clickBean, List<DateBean> selects) {
         if (selects!=null&&!selects.isEmpty()) {
             JLog.i(selects.toString());
             if (endDateBean==null){
                 //没有没有初始日期，加入初始日期
                 if (startDatebean==null){
-                    setStart(selects.get(0));
+                    setStart(clickBean);
                     //初始日期已经存在，此时为确认当前日期
                 }else {
-                    setEnd(selects.get(selects.size()-1));
+                    setEnd(clickBean);
 
                 }
             }else {
                 endDateBean=null;
-                setStart(selects.get(0));
+                setStart(clickBean);
             }
             notifyDataSetChanged();
         }

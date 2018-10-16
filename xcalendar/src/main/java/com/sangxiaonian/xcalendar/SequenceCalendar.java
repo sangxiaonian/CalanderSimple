@@ -4,11 +4,13 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 import com.sangxiaonian.xcalendar.adapter.rvadapter.SequenceAdapter;
 import com.sangxiaonian.xcalendar.entity.DateBean;
+import com.sangxiaonian.xcalendar.utils.CalendarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +40,9 @@ public class SequenceCalendar extends RecyclerView {
     }
 
     private void initView(Context context, AttributeSet attrs, int defStyle) {
-        startYear=2018;
+        startYear= CalendarUtils.getInstance().getCurrentYear();
         startMonth=0;
-        endYear=2018;
+        endYear=CalendarUtils.getInstance().getCurrentYear()+1;
         endMonth=11;
         dates=new ArrayList<>();
         for (int i = startYear; i <=endYear ; i++) {
@@ -53,6 +55,7 @@ public class SequenceCalendar extends RecyclerView {
         setLayoutManager(manager);
         adapter=new SequenceAdapter(context,dates);
         setAdapter(adapter);
+        new LinearSnapHelper().attachToRecyclerView(this);
 
     }
 

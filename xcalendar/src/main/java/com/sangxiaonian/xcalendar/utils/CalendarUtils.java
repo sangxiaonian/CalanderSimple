@@ -12,6 +12,9 @@ public class CalendarUtils {
         public static CalendarUtils calander = new CalendarUtils();
     }
 
+    public static CalendarUtils getInstance(){
+        return InnerClass.calander;
+    }
 
     public CalendarUtils() {
     }
@@ -54,8 +57,9 @@ public class CalendarUtils {
      */
     public int getMonthFirstDayOfWeek(int year, int maoth) {
         Calendar calendar = Calendar.getInstance();
+        calendar.clear();
         calendar.set(year, maoth, 1);
-        return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        return calendar.get(Calendar.DAY_OF_WEEK);
     }
 
     /**

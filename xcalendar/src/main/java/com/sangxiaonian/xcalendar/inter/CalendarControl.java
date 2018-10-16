@@ -13,9 +13,10 @@ public class CalendarControl  {
 
         /**
          * 当日历被点击的时候
+         * @param clickBean 最后一次点击时候的日期
          * @param selects 当前选中的全部日期
          */
-        void onSelectChange(List<DateBean> selects);
+        void onSelectChange(DateBean clickBean, List<DateBean> selects);
 
     }
 
